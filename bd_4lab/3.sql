@@ -15,18 +15,18 @@ where not (grade = 'A' or grade = 'A-' or grade = 'B+' or grade = 'B')
 group by instr.name, takes.grade;
 
 --c
-select all dept_name
+select dept_name
 from student
-inner join takes on student.id = takes.id
-where not (grade = 'F' or grade = 'C')
-group by dept_name;
+join takes on student.id = takes.id
+group by dept_name
+having sum(case when grade = 'C' or grade = 'F' then 1 else 0 end) = 0;
 
 --d
-select all name
+select name
 from instructor inner join teaches on instructor.id = teaches.id
 inner join takes on teaches.course_id = takes.course_id
-where not grade = 'A'
-group by name;
+group by name
+having sum(case when grade = 'A' then 1 else 0 end) = 0;
 
 --e
 select course.title, end_hr
