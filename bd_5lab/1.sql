@@ -50,4 +50,4 @@ delete from boxes
 where value < 150;
 
 --13
-delete from boxes where warehouses in (select code from warehouses where location = 'New York'), returning *;
+delete from boxes where warehouses in (select code from warehouses where location = 'New York') returning *;
