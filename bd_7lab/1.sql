@@ -151,6 +151,7 @@ create function launch_d_e()
 begin
     raise notice '%', check_pas(new.name);
     raise notice '%', if_divides_on_3and4(new.age);
+    return new;
 end;
 $$;
 
@@ -164,7 +165,8 @@ insert into lab7(id, name, age) values(2, 'Sarah', 48);
 
 --\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ 3 \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 --a
-create function increase_salary(inout name varchar, inout age int, inout salary int, in work_experience int, out discount int)
+drop function increase_salary(name varchar, age int, salary int, work_experience int);
+create or replace function increase_salary(inout name varchar, inout age int, inout salary int, in work_experience int, out discount float)
 language plpgsql as
     $$
 declare
@@ -180,8 +182,7 @@ begin
     end loop;
 end;
 $$;
-
-select * from increase_salary('Anna', 45, 34000, 3);
+select * from increase_salary('Anna', 45, 34000, 10);
 
 
 --b
